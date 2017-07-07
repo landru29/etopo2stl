@@ -44,7 +44,7 @@ func MoveToOrigin(xyz []earth.VectorA, withAltitude bool) (result []earth.Vector
 
 // Map ...
 func Map(xyz []earth.VectorA) (xyzLength []earth.VectorL) {
-	xyzOrigin := MoveToOrigin(xyz, false)
+	xyzOrigin := MoveToOrigin(xyz, true)
 	for _, xyzVector := range xyzOrigin {
 		xyzLength = append(xyzLength, earth.Angle2length(xyzVector, xyzVector.Lon))
 	}
