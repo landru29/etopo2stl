@@ -13,12 +13,14 @@ var inFile string
 var stlFile string
 var xyzFile string
 var scaleS string
+var abovePlan string
 
 func init() {
 	Cmd.PersistentFlags().StringVarP(&inFile, "inFile", "", "", "xyz file")
 	Cmd.PersistentFlags().StringVarP(&stlFile, "stlFile", "", "", "out stl file")
 	Cmd.PersistentFlags().StringVarP(&xyzFile, "xyzFile", "", "", "out xyz file")
 	Cmd.PersistentFlags().StringVarP(&scaleS, "scale", "", "", "Altitude scale")
+	Cmd.PersistentFlags().StringVarP(&abovePlan, "above", "", "", "Keep above plan")
 }
 
 // Cmd ...
@@ -45,6 +47,14 @@ var Cmd = &cobra.Command{
 		xyz, err := ReadXyz(file)
 		if err != nil {
 			log.Fatal(err)
+		}
+
+		if len(abovePlan) > 0 {
+			plan, err := strconv.ParseFloat(abovePlan, 64)
+			if err != nil {
+				log.Fatal(err)
+			}
+			xyz = Above(xyz, plan)
 		}
 
 		var xyzLength = Map(xyz)
