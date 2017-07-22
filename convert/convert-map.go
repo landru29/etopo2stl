@@ -42,11 +42,22 @@ func MoveToOrigin(xyz []earth.VectorA, withAltitude bool) (result []earth.Vector
 	return
 }
 
-// Map ...
-func PolarToLength(xyz []earth.VectorA) (xyzLength []earth.VectorL) {
+// PolarToLength ...
+func PolarToLength(xyz []earth.VectorA) (xyzLength [][]earth.VectorL, sizeX int, sizeY int) {
 	xyzOrigin := MoveToOrigin(xyz, true)
+	lastPoint := xyzOrigin[0]
+	var x int
 	for _, xyzVector := range xyzOrigin {
-		xyzLength = append(xyzLength, earth.Angle2length(xyzVector, xyzVector.Lon))
+		if (lastPoint.Lat != xyzVector.Lat) && (lastPoint.Lon != xyzVector.Lon) {
+			sizeY++
+			var line []earth.VectorL
+			xyzLength = append(xyzLength, line)
+			sizeX = x
+			x = 0
+		}
+		x++
+		xyzLength[sizeY] = append(xyzLength[sizeY], earth.Angle2length(xyzVector, xyzVector.Lon))
 	}
+	sizeY++
 	return
 }

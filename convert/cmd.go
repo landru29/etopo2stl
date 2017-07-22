@@ -92,7 +92,7 @@ var Cmd = &cobra.Command{
 		}
 
 		// polar to length
-		var xyzLength = PolarToLength(xyz)
+		var xyzLength, _, _ = PolarToLength(xyz)
 
 		// Write to file
 		if len(xyzFile) > 0 {
@@ -102,8 +102,10 @@ var Cmd = &cobra.Command{
 			}
 			defer xyzOut.Close()
 
-			for _, xyzVector := range xyzLength {
-				fmt.Fprintf(xyzOut, "%f %f %f\n", xyzVector.U, xyzVector.V, xyzVector.Altitude)
+			for _, xyzLine := range xyzLength {
+				for _, xyzVector := range xyzLine {
+					fmt.Fprintf(xyzOut, "%f %f %f\n", xyzVector.U, xyzVector.V, xyzVector.Altitude)
+				}
 			}
 
 		}
