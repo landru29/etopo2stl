@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/landru29/xyz2stl/convert"
+	"github.com/landru29/etopo2stl/convert"
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "xyz2stl",
+	Use:   "etopo2stl",
 	Short: "convert etopo xyz to stl",
 }
 

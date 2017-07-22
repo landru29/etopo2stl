@@ -1,6 +1,6 @@
 package convert
 
-import "github.com/landru29/xyz2stl/earth"
+import "github.com/landru29/etopo2stl/earth"
 
 // Above ...
 func Above(xyz []earth.VectorA, plan float64) (result []earth.VectorA) {

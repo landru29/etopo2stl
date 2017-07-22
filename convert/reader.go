@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/landru29/xyz2stl/earth"
+	"github.com/landru29/etopo2stl/earth"
 )
 
 // ReadXyz ...
