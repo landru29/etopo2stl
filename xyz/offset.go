@@ -1,11 +1,11 @@
-package convert
+package xyz
 
 import "github.com/landru29/etopo2stl/earth"
 
 // Offset ...
-func Offset(xyz []earth.VectorA, offset float64) (xyzOut []earth.VectorA) {
+func Offset(xyzAngle []earth.VectorA, offset float64) (xyzOut []earth.VectorA) {
 
-	for _, xyzVector := range xyz {
+	for _, xyzVector := range xyzAngle {
 		xyzOut = append(
 			xyzOut,
 			earth.VectorA{

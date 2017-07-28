@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/landru29/etopo2stl/xyz"
 	"github.com/spf13/cobra"
 )
 
@@ -45,7 +46,7 @@ var Cmd = &cobra.Command{
 		defer file.Close()
 
 		// Read file
-		xyz, err := ReadXyz(file)
+		xyzAngle, err := xyz.Read(file)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -56,12 +57,12 @@ var Cmd = &cobra.Command{
 			if err != nil {
 				log.Fatal(err)
 			}
-			xyz = Above(xyz, plan)
+			xyzAngle = xyz.Above(xyzAngle, plan)
 		}
 
 		// Log
 		if logFunction {
-			xyz = Logarythm(xyz)
+			xyzAngle = xyz.Logarythm(xyzAngle)
 		}
 
 		// Offset
@@ -70,7 +71,7 @@ var Cmd = &cobra.Command{
 			if err != nil {
 				log.Fatal(err)
 			}
-			xyz = Offset(xyz, offset)
+			xyzAngle = xyz.Offset(xyzAngle, offset)
 		}
 
 		// Pedestral
@@ -79,7 +80,7 @@ var Cmd = &cobra.Command{
 			if err != nil {
 				log.Fatal(err)
 			}
-			xyz = Pedestal(xyz, thickness)
+			xyzAngle = Pedestal(xyzAngle, thickness)
 		}
 
 		// Scale
@@ -88,11 +89,11 @@ var Cmd = &cobra.Command{
 			if err != nil {
 				log.Fatal(err)
 			}
-			xyz = Scale(xyz, scale)
+			xyzAngle = xyz.Scale(xyzAngle, scale)
 		}
 
 		// polar to length
-		var xyzLength, _, _ = PolarToLength(xyz)
+		var xyzMeter, _, _ = PolarToLength(xyzAngle)
 
 		// Write to file
 		if len(xyzFile) > 0 {
@@ -102,7 +103,7 @@ var Cmd = &cobra.Command{
 			}
 			defer xyzOut.Close()
 
-			for _, xyzLine := range xyzLength {
+			for _, xyzLine := range xyzMeter {
 				for _, xyzVector := range xyzLine {
 					fmt.Fprintf(xyzOut, "%f %f %f\n", xyzVector.U, xyzVector.V, xyzVector.Altitude)
 				}

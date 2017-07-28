@@ -1,4 +1,4 @@
-package convert
+package xyz
 
 import (
 	"bufio"
@@ -10,8 +10,8 @@ import (
 	"github.com/landru29/etopo2stl/earth"
 )
 
-// ReadXyz ...
-func ReadXyz(file io.Reader) (data []earth.VectorA, err error) {
+// Read ...
+func Read(file io.Reader) (data []earth.VectorA, err error) {
 	//data = make([]earth.VectorA, 0)
 
 	scanner := bufio.NewScanner(file)
